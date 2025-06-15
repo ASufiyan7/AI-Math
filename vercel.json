@@ -1,0 +1,23 @@
+{
+  "builds": [
+    {
+      "src": "back/main.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "front/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "installCommand": "npm install --include=dev",
+        "buildCommand": "npm run build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "back/main.py"
+    }
+  ]
+}
