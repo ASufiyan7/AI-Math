@@ -14,10 +14,6 @@
     {
       "src": "/api/(.*)",
       "dest": "back/main.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/front/index.html"
     }
   ]
 }
