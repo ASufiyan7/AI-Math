@@ -1,21 +1,27 @@
 {
+  "version": 2,
+  "installCommand": "pip install -r back/requirements.txt && npm install --prefix front",
   "builds": [
-    {
-      "src": "back/main.py",
-      "use": "@vercel/python"
-    },
     {
       "src": "front/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "installCommand": "npm install --include=dev",
-        "buildCommand": "npm run build",
-        "distDir": "dist"
+        "outputDirectory": "dist"
       }
+    },
+    {
+      "src": "back/main.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "back/main.py" },
-    { "src": "/(.*)", "dest": "front/dist/index.html" }
+    {
+      "src": "/api/calculate(.*)",
+      "dest": "/back/main.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/front/dist/$1"
+    }
   ]
 }
