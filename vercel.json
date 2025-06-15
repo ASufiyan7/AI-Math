@@ -8,16 +8,14 @@
       "src": "front/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
         "installCommand": "npm install --include=dev",
-        "buildCommand": "npm run build"
+        "buildCommand": "npm run build",
+        "distDir": "dist"
       }
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "back/main.py"
-    }
+    { "src": "/api/(.*)", "dest": "back/main.py" },
+    { "src": "/(.*)", "dest": "front/dist/index.html" }
   ]
 }
