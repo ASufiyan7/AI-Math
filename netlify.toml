@@ -1,17 +1,9 @@
-# This section tells Netlify how to build your frontend
 [build]
-  # This command builds your React/Vite app
   command = "npm run build"
-  # This is the folder where the built frontend files are located
   publish = "front/dist"
-  # This tells Netlify to look in the 'back' folder for serverless functions
   functions = "back"
 
-# This section makes the backend API available to the frontend
 [[redirects]]
-  # The path the frontend will use to call the API
   from = "/api/*"
-  # The internal path to your Python function. 'main' is from 'main.py'
   to = "/.netlify/functions/main/:splat"
-  # This makes it work like a direct API call
   status = 200
