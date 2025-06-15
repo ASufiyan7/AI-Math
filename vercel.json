@@ -1,6 +1,7 @@
 {
   "version": 2,
   "installCommand": "pip install -r back/requirements.txt && npm install --prefix front",
+  "pythonVersion": "3.9",
   "builds": [
     {
       "src": "front/package.json",
