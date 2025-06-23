@@ -29,15 +29,3 @@ This project uses a modern client-server architecture with a React frontend and 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Google Gemini](https://img.shields.io/badge/Google_Gemini-8E44AD?style=for-the-badge&logo=google&logoColor=white)
-
----
-
-## 🔧 Getting Started
-
-This project is split into a `front` (frontend) and `back` (backend) directory. You'll need to run both simultaneously.
-
-### Prerequisites
-
-* Node.js (v18 or later)
-* Python (v3.8 or later)
-* A Google AI API key for the Gemini model.
