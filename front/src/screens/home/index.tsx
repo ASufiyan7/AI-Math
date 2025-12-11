@@ -42,10 +42,9 @@ export default function Home() {
   const [latexExpression, setLatexExpression] = useState<string[]>([]);
   const [latexPosition, setLatexPosition] = useState({ x: 10, y: 200 });
 
-  // For Undo
   const [strokes, setStrokes] = useState<ImageData[]>([]);
 
-  // ------------------ Canvas Initialization ------------------
+  // Canvas Initialization 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
@@ -75,7 +74,6 @@ export default function Home() {
     };
   }, []);
 
-  // ------------------ Typeset LaTeX Expressions ------------------
   useEffect(() => {
     if (latexExpression.length > 0 && window.MathJax) {
       setTimeout(() => {
@@ -84,7 +82,6 @@ export default function Home() {
     }
   }, [latexExpression]);
 
-  // ------------------ Reset Canvas ------------------
   useEffect(() => {
     if (reset) {
       resetCanvas();
@@ -101,10 +98,9 @@ export default function Home() {
     if (!ctx) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setStrokes([]); // Clear strokes history
+    setStrokes([]); 
   };
 
-  // ------------------ Undo Logic ------------------
   const undoLastStroke = () => {
     const canvas = canvasRef.current;
     if (!canvas || strokes.length === 0) return;
@@ -123,7 +119,6 @@ export default function Home() {
     });
   };
 
-  // ------------------ Drawing Events ------------------
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -159,7 +154,6 @@ export default function Home() {
     setStrokes((prev) => [...prev, ctx.getImageData(0, 0, canvas.width, canvas.height)]);
   };
 
-  // ------------------ Convert Backend Response to LaTeX ------------------
   const convertToLatex = (items: Response[]) => {
     return items.map((item) => {
       if (item.expr.toLowerCase() === 'image description') {
@@ -170,7 +164,7 @@ export default function Home() {
     });
   };
 
-  // ------------------ Analyze (Send to Backend) ------------------
+  // Analyze (Send to Backend) 
   const runRoute = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -198,7 +192,6 @@ export default function Home() {
     }
   };
 
-  // ------------------ UI Layout ------------------
   return (
     <>
       {/* Top Bar */}
