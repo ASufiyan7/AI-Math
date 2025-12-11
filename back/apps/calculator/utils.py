@@ -6,24 +6,16 @@ import os
 from PIL import Image
 from constants import GEMINI_API_KEY
 
-# Configure Gemini API
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Simple cache dictionary to store recent results
 CACHE = {}
 
 def get_image_hash(img: Image) -> str:
-    """
-    Generate a unique hash for an image to use for caching.
-    """
     img_bytes = img.tobytes()
     return hashlib.md5(img_bytes).hexdigest()
 
 def process_math(img: Image, dict_of_vars: dict):
-    """
-    Process the image as a math problem using the Gemini API.
-    Includes caching and better error handling.
-    """
     img_hash = get_image_hash(img)
 
     # Check cache first
@@ -49,13 +41,12 @@ def process_math(img: Image, dict_of_vars: dict):
         response = model.generate_content([prompt, img])
         response_text = response.text.strip()
         
-        # Try parsing response
         answers = []
         try:
-            answers = json.loads(response_text)  # First try standard JSON parsing
+            answers = json.loads(response_text)  
         except json.JSONDecodeError:
             try:
-                answers = ast.literal_eval(response_text)  # Try safer parsing if JSON fails
+                answers = ast.literal_eval(response_text) 
             except Exception as e:
                 print(f"Error parsing response from Gemini API: {e}")
                 answers = []
@@ -70,12 +61,9 @@ def process_math(img: Image, dict_of_vars: dict):
 
     except Exception as e:
         print(f"API error: {e}")
-        return process_general(img)  # Fallback to general description
+        return process_general(img)  
 
 def process_general(img: Image) -> list:
-    """
-    Fallback when math detection fails.
-    """
     return [{
         "expr": "Image description",
         "result": "This image seems to be a general picture without mathematical content.",
@@ -83,9 +71,6 @@ def process_general(img: Image) -> list:
     }]
 
 def analyze_image(img: Image, dict_of_vars: dict):
-    """
-    Main function that decides whether to process the image as math or general content.
-    """
     print("Analyzing image...")
 
     # First try processing as a math problem
